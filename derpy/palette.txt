@@ -1,0 +1,15 @@
+MC,199,255,112
+White,255,255,255
+Black,0,0,0
+Eye0,132,85,5
+Eye1,171,136,49
+Eye2,248,233,132
+ManeHighlight,231,221,107
+ManeFill,250,249,175
+CoatOutline,130,138,168
+CoatFill,194,199,214
+Bubble,223,223,255
+Reflect,223,255,255
+Mouth,213,47,133
+Tongue,255,120,45
+TongueHighlight,220,72,0

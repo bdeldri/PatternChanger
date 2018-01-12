@@ -1,0 +1,31 @@
+MC, 225, 255, 177
+White, 255, 255, 255
+Black, 0, 0, 0
+Antique White, 230, 229, 234
+Graybeard, 160, 160, 170
+Periwinkle, 102, 76, 137
+Purple, 75, 20, 62
+Old Rose, 232, 129, 176
+Rosy Cheeks, 255, 182, 212
+Light Taupe, 236, 204, 119
+Dark Ivory, 118, 107, 79
+Buttercup, 255, 246, 191
+Blue Neon, 10, 146, 186
+Cornflower, 110, 62, 110
+Orchid, 194, 159, 191
+Red, 239, 58, 73
+Hot Orchid, 184, 54, 118
+Hot Rose, 229, 71, 130
+Green, 19, 152, 73
+Desert Glaze, 250, 143, 5
+Sungold, 254, 190, 84
+Toasted Almond, 140, 80, 8
+Ocean, 123, 187, 163
+Navy, 66, 62, 112
+Grape, 122, 54, 101
+Royal, 34, 68, 114
+Cream, 251, 241, 133
+Turquoise, 135,193,205
+Pink, 255, 216, 233
+Passion, 255,0,102
+Orange, 255, 214, 161

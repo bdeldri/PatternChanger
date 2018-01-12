@@ -1,0 +1,77 @@
+--- ALIAS LIST ---
+MC: MC
+A : CoatFill
+B : CoatOutline
+C : ManeFill
+D : ManeHighlight
+E : Tongue
+F : Mouth
+G : Eye2
+H : White
+I : Black
+J : Eye1
+K : Eye0
+--- BOBBIN COUNTS ---
+MC: 4
+A : 7
+B : 7
+C : 3
+D : 5
+E : 1
+F : 1
+G : 1
+H : 3
+I : 3
+J : 1
+K : 1
+--- ROW LISTS (STARTING AT BOTTOM RIGHT CORNER, ALTERNATING DIRECTION) ---
+Row   1: MC(19) A(13) B(1) C(8) D(1) MC(8)
+Row   2: MC(8) D(1) C(8) B(1) A(13) B(1) MC(18)
+Row   3: MC(18) A(15) C(8) D(1) MC(8)
+Row   4: MC(8) D(1) C(8) A(15) B(3) MC(1) D(1) MC(13)
+Row   5: MC(13) D(2) A(2) B(1) A(15) B(2) C(6) D(1) MC(8)
+Row   6: MC(6) D(1) MC(2) C(4) B(2) A(1) B(1) A(15) B(1) A(2) D(2) B(1) MC(12)
+Row   7: MC(11) B(2) D(1) C(1) A(2) B(1) A(18) B(2) C(2) D(1) MC(2) D(1) MC(6)
+Row   8: MC(6) D(4) C(1) B(1) A(1) B(1) A(2) B(1) A(15) D(1) A(1) D(1) C(1) D(1) A(2) B(1) MC(10)
+Row   9: MC(9) B(1) A(3) D(1) C(1) D(1) A(1) D(1) B(2) A(12) B(1) A(1) B(1) A(4) B(1) D(2) C(1) D(1) MC(6)
+Row  10: MC(7) D(1) C(2) B(1) A(3) B(1) A(2) B(1) A(13) B(1) C(1) A(1) C(2) D(1) A(3) B(1) MC(9)
+Row  11: MC(9) B(1) A(2) B(1) D(1) C(2) A(1) C(1) A(13) B(1) A(4) B(1) A(2) B(1) C(2) D(1) MC(7)
+Row  12: MC(8) D(1) C(1) B(1) A(8) B(1) A(11) B(1) C(1) D(1) C(2) D(1) A(1) B(1) A(1) B(1) MC(9)
+Row  13: MC(10) B(2) A(1) C(3) D(1) C(1) B(1) A(10) B(2) A(6) B(2) C(1) D(1) MC(9)
+Row  14: MC(10) B(2) A(4) B(1) A(3) B(1) A(10) B(1) C(5) A(3) B(1) MC(9)
+Row  15: MC(9) B(1) A(3) C(5) B(1) A(8) E(3) A(3) B(1) A(4) B(2) MC(10)
+Row  16: MC(9) B(1) A(1) B(1) A(4) B(1) A(3) E(4) A(4) B(1) A(2) B(1) C(5) A(4) B(1) MC(8)
+Row  17: MC(7) B(1) A(3) B(1) D(1) C(5) B(3) A(4) E(6) A(2) B(1) A(1) B(3) A(3) MC(9)
+Row  18: MC(8) B(1) A(7) B(1) A(3) E(5) A(6) B(2) C(4) A(5) B(1) MC(7)
+Row  19: MC(6) B(1) A(6) C(3) B(1) A(8) E(4) A(2) B(1) A(1) B(1) A(8) MC(8)
+Row  20: MC(7) B(1) A(8) B(2) A(4) E(3) F(1) A(8) B(1) C(2) A(6) B(1) MC(6)
+Row  21: MC(6) A(7) C(1) B(1) A(8) B(3) E(1) F(1) A(5) B(1) A(8) B(1) MC(7)
+Row  22: MC(6) B(1) A(9) B(1) A(5) B(1) A(7) G(1) H(3) A(1) B(1) C(1) A(7) B(1) MC(5)
+Row  23: MC(5) B(1) A(4) B(1) A(2) B(1) A(1) H(3) C(1) I(2) A(6) B(1) A(6) B(1) A(3) B(1) A(4) B(1) MC(6)
+Row  24: MC(6) B(1) A(3) B(1) A(4) B(1) A(13) I(3) J(1) H(3) B(1) A(3) B(1) A(3) B(1) MC(5)
+Row  25: MC(5) B(1) A(2) B(2) A(3) B(1) H(3) J(1) I(3) A(8) H(3) A(2) B(1) A(4) B(2) A(2) B(1) MC(6)
+Row  26: MC(7) B(2) MC(1) B(1) A(6) H(5) A(7) H(2) I(1) J(1) H(4) A(3) B(1) MC(1) B(2) MC(6)
+Row  27: MC(9) A(4) H(4) K(2) H(2) A(6) H(7) A(6) MC(10)
+Row  28: MC(9) B(1) A(6) H(3) G(3) D(1) A(6) I(1) H(1) K(2) H(4) A(4) B(1) MC(8)
+Row  29: MC(8) B(1) A(4) H(5) K(2) A(7) D(1) I(2) D(1) C(1) H(2) B(2) A(4) B(1) MC(9)
+Row  30: MC(9) B(1) A(4) B(2) H(2) C(2) I(3) A(7) I(1) H(6) I(1) A(2) B(2) MC(8)
+Row  31: MC(8) B(1) A(4) I(1) H(4) I(1) A(7) I(4) J(2) H(2) B(1) D(2) A(4) MC(9)
+Row  32: MC(8) B(1) A(4) D(3) H(2) J(1) H(2) I(2) A(10) H(2) I(1) A(5) B(2) MC(7)
+Row  33: MC(7) B(2) A(18) K(1) I(1) H(4) D(1) C(2) B(1) A(4) B(1) MC(8)
+Row  34: MC(8) B(1) A(4) MC(1) D(1) C(3) D(1) K(4) A(3) D(6) A(9) B(2) MC(7)
+Row  35: MC(7) B(2) A(7) D(1) C(4) D(2) A(5) K(1) D(1) C(5) D(1) MC(1) B(1) A(3) B(1) MC(8)
+Row  36: MC(8) B(1) A(2) B(1) MC(2) B(1) D(1) C(6) D(3) A(4) D(2) C(4) D(1) B(1) A(4) B(1) MC(8)
+Row  37: MC(8) B(1) A(4) B(1) C(20) D(1) B(1) MC(3) B(2) MC(9)
+Row  38: MC(14) D(1) A(1) D(1) C(20) B(1) A(3) B(1) MC(8)
+Row  39: MC(9) B(1) A(1) B(1) D(1) C(19) D(4) MC(14)
+Row  40: MC(15) D(1) C(20) D(2) MC(1) B(2) MC(9)
+Row  41: MC(13) D(2) C(18) D(2) MC(15)
+Row  42: MC(16) D(2) C(16) D(2) MC(14)
+Row  43: MC(16) D(2) C(13) D(2) MC(17)
+Row  44: MC(18) B(1) D(4) C(5) D(4) MC(18)
+Row  45: MC(21) D(7) MC(1) B(2) MC(19)
+Row  46: MC(50)
+Row  47: MC(50)
+Row  48: MC(50)
+Row  49: MC(50)
+Row  50: MC(50)
