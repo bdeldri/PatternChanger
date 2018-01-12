@@ -21,6 +21,12 @@ namespace PatternChanger
     /// </summary>
     public partial class MainWindow : Window
     {
+        public enum ColorMode
+        {
+            Average,
+            Voting
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,18 +38,21 @@ namespace PatternChanger
 
         private Color _renderMC = Colors.White;
 
+        private bool REVERSE_DIRECTION = false;
+
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //_renderedImage.Source = ProcessDirectory(@"C:\Users\bdeldri\Documents\visual studio 2012\Projects\PatternChanger\pony\", 240, 215);
             //_renderedImage.Source = ProcessDirectory(@"C:\Users\bdeldri\Documents\visual studio 2012\Projects\PatternChanger\derpy\", 50, 50);
             //_renderedImage.Source = ProcessDirectory(@"C:\Users\bdeldri\Documents\visual studio 2012\Projects\PatternChanger\derpy_with_fan\", 100, 50);
-            _renderedImage.Source = ProcessDirectory(@"C:\Users\bdeldri\Documents\visual studio 2012\Projects\PatternChanger\kyle\", 200, 150);
+            //_renderedImage.Source = ProcessDirectory(@"C:\Users\bdeldri\Documents\visual studio 2012\Projects\PatternChanger\kyle\", 200, 150);
+            _renderedImage.Source = ProcessDirectory(@"C:\Users\bdeldri\dev\PatternChanger\wave\", 122, 155);
         }
 
         private ImageSource ProcessDirectory(string p_dir, int p_width, int p_height)
         {
             LoadPalette(System.IO.Path.Combine(p_dir, "palette.txt"));
-            var colorList = BuildPatternFromImage(System.IO.Path.Combine(p_dir,  "grid_source.png"), p_width, p_height);
+            var colorList = BuildPatternFromImage(System.IO.Path.Combine(p_dir, "grid_source.png"), p_width, p_height, ColorMode.Voting);
 
             var colorAliases = BuildColorAliases(colorList, p_width, p_height);
 
@@ -62,10 +71,11 @@ namespace PatternChanger
                 outputFileLines.Add(c.Key.PadRight(2) + ": " + c.Value);
             }
 
-            outputFileLines.Add("--- ROW LISTS (STARTING AT BOTTOM RIGHT CORNER, ALTERNATING DIRECTION) ---");
+            outputFileLines.Add("--- ROW LISTS (STARTING AT BOTTOM RIGHT CORNER" + (REVERSE_DIRECTION ? ", ALTERNATING DIRECTION" : "") + ") ---");
             for (int row = 0; row < p_height; row++)
             {
                 var ri = GetRowInstructions(colorList, row, p_width, p_height, colorAliases);
+                outputFileLines.Add("----------------------------------------------------------------------------------");
                 outputFileLines.Add("Row " + (row + 1).ToString().PadLeft(3) + ": " + String.Join(" ", ri.Select(p_item => p_item.Name + "(" + p_item.Count + ")")));
             }
 
@@ -128,17 +138,19 @@ namespace PatternChanger
 
         private Dictionary<string, string> BuildColorAliases(List<string> p_colors, int p_gridWidth, int p_gridHeight)
         {
-            Dictionary<string, string> aliasList = new Dictionary<string,string>();
+            Dictionary<string, string> aliasList = new Dictionary<string, string>();
 
             int nextAlias = 0;
 
-            for(int row = 0; row < p_gridHeight; row++) {
+            for (int row = 0; row < p_gridHeight; row++)
+            {
 
                 var rowColors = GetRow(p_colors, row, p_gridWidth, p_gridHeight);
 
-                foreach(var color in rowColors) 
+                foreach (var color in rowColors)
                 {
-                    if(!aliasList.ContainsKey(color)) {
+                    if (!aliasList.ContainsKey(color))
+                    {
                         aliasList.Add(color, _aliases[nextAlias++]);
                     }
                 }
@@ -193,11 +205,11 @@ namespace PatternChanger
                     Math.Pow(s - s2, 2) +
                     Math.Pow(v - v2, 2);
                 */
-                
+
                 var d = Math.Pow(p_color.R - color.Value.R, 2) +
                     Math.Pow(p_color.G - color.Value.G, 2) +
                     Math.Pow(p_color.B - color.Value.B, 2);
-                
+
 
                 if (d < minDist)
                 {
@@ -221,15 +233,16 @@ namespace PatternChanger
             }
         }
 
-        private List<string> GetRow(List<string> p_colors, int p_rowNum, int p_gridWidth, int p_gridHeight) 
+        private List<string> GetRow(List<string> p_colors, int p_rowNum, int p_gridWidth, int p_gridHeight)
         {
             // Rows are numbered from the bottom
 
             int startIndex = (p_gridHeight - p_rowNum - 1) * p_gridWidth;
             int step = 1;
 
-            // even numbered rows start on the right and count backwards, odd ones on the left
-            if (p_rowNum % 2 == 0)
+            // If we are reversing direction, the even numbered rows start on the right and count backwards, odd ones on the left.
+            // If we are not reversing direction, all rows start on the right and count backwards
+            if (p_rowNum % 2 == 0 || !REVERSE_DIRECTION)
             {
                 step = -1;
                 startIndex += p_gridWidth - 1;
@@ -256,7 +269,7 @@ namespace PatternChanger
 
             List<ColorCount> rowInstruction = new List<ColorCount>();
 
-            foreach(var color in row)
+            foreach (var color in row)
             {
                 var alias = p_aliasList[color];
 
@@ -309,7 +322,7 @@ namespace PatternChanger
         }
 
 
-        private List<string> BuildPatternFromImage(string p_imageFileName, int p_gridWidth, int p_gridHeight)
+        private List<string> BuildPatternFromImage(string p_imageFileName, int p_gridWidth, int p_gridHeight, ColorMode p_mode)
         {
             BitmapSource bmp = new BitmapImage(new Uri(p_imageFileName));
 
@@ -326,13 +339,12 @@ namespace PatternChanger
 
             Dictionary<string, int> votes = new Dictionary<string, int>();
 
-            // Pull out a list of the average colors
-            for(double j = 0; j < bmp.PixelHeight; j += cellHeight) 
+            // Pull out a list of the colors
+            for (double j = 0; j < bmp.PixelHeight; j += cellHeight)
             {
                 Console.WriteLine("Processing line " + Math.Round(j) + ", " + (j / cellHeight));
-                for(double i = 0; i < bmp.PixelWidth; i += cellWidth) 
+                for (double i = 0; i < bmp.PixelWidth; i += cellWidth)
                 {
-                    //TODO: average may not be the best idea here, maybe a voting scheme?
                     double average_r = 0;
                     double average_g = 0;
                     double average_b = 0;
@@ -347,27 +359,54 @@ namespace PatternChanger
                         votes[c.Key] = 0;
                     }
 
+                    double cellMargin = 3;
                     double cellStep = 1;
 
                     //Console.WriteLine("Processing region at " + (i) + ", " + (j));
 
-                    for (double cellj = cellStep; cellj < cellHeight - cellStep; cellj += cellStep)
+                    for (double cellj = cellMargin; cellj < cellHeight - cellMargin; cellj += cellStep)
                     {
-                        for (double celli = cellStep; celli < cellWidth - cellStep; celli += cellStep)
+                        for (double celli = cellMargin; celli < cellWidth - cellMargin; celli += cellStep)
                         {
                             var index = (int)((j + cellj) * bmp.PixelWidth + (i + celli)) * 4;
 
-                            //votes[GetClosestColor(Interpolate(rawPixels, i + celli, j + cellj, bmp.PixelWidth))]++;
+                            var r = rawPixels[index + 2];
+                            var g = rawPixels[index + 1];
+                            var b = rawPixels[index];
 
-                            votes[GetClosestColor(Color.FromRgb(rawPixels[index+2], rawPixels[index+1], rawPixels[index]))]++;
+                            if ((r + g + b) / 2 < 1) continue;
+                            //if ((r + g + b) / 2 > 253) continue;
+
+                            average_r += r;
+                            average_g += g;
+                            average_b += b;
+
+                            pixelCount += 1;
+
+                            votes[GetClosestColor(Color.FromRgb(rawPixels[index + 2], rawPixels[index + 1], rawPixels[index]))]++;
                         }
                     }
 
-                    if (votes.Any(p_v => p_v.Value > 0))
-                    {
-                        ret.Add(votes.OrderBy(p_v => p_v.Value).Last().Key);
+                    average_r /= pixelCount;
+                    average_g /= pixelCount;
+                    average_b /= pixelCount;
 
-                        //Debug.WriteLine("=== Done sampling cell, color = " + color );
+                    if (p_mode == ColorMode.Average)
+                    {
+                        ret.Add(GetClosestColor(Color.FromRgb((byte)average_r, (byte)average_g, (byte)average_b)));
+                    }
+                    else if (p_mode == ColorMode.Voting)
+                    {
+                        if (votes.Any(p_v => p_v.Value > 0))
+                        {
+                            ret.Add(votes.OrderBy(p_v => p_v.Value).Last().Key);
+
+                            //Debug.WriteLine("=== Done sampling cell, color = " + color );
+                        }
+                    }
+                    else
+                    {
+                        throw new NotSupportedException("Unsupported color mode");
                     }
                 }
             }
@@ -393,8 +432,8 @@ namespace PatternChanger
             if (vIndex11 > 0 && vIndex11 + 2 < rawPixels.Length)
             {
                 v11b = rawPixels[vIndex11];
-                v11g = rawPixels[vIndex11+1];
-                v11r = rawPixels[vIndex11+2];
+                v11g = rawPixels[vIndex11 + 1];
+                v11r = rawPixels[vIndex11 + 2];
             }
 
             double v12r = 0;
